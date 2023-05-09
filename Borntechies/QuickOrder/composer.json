@@ -1,0 +1,21 @@
+{
+    "name": "borntechies/module-quick-order",
+    "description": "Borntechies Magento2 Quick Order Module",
+    "require": {
+        "magento/module-catalog": "104.0.*",
+        "magento/module-quote": "101.2.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.1",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Borntechies\\QuickOrder\\": ""
+        }
+    }
+}

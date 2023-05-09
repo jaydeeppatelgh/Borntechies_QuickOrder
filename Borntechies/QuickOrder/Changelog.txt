@@ -1,0 +1,32 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.1 --------------------------------------
+    + Compatible with Magento 2.4.4.
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x.
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x. enterprise edition
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Added Mass upload (CSV) option to add product to cart from CSV and download sample CSV file.
+    - fixed adding multiple product rows for grouped products.
+    - fixed issue with configurable product options not showing in popup.
+    - fixed issue with updating product quantity. 
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible with Magento 2.3.x.
+    + Issue with Custom Option fixed.
+    + Issue with Out of Stock Product fixed.
+
+-------------------------------- Version 2.2.0 --------------------------------------
+    + Compatible with Magento 2.2.x.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Allow customers to purchase products from a single page.
+    + Ajax search products to add to cart.
+    + Allow customer to check estimate shipping and tax from same quick order page.

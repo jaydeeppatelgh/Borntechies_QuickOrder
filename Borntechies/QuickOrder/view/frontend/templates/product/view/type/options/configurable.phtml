@@ -1,0 +1,48 @@
+<?php
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+
+?>
+
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="field configurable required">
+            <label class="label" for="attribute<?= /* @noEscape */ $_attribute->getAttributeId() ?>">
+                <span><?= $escaper->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?></span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?= /* @noEscape */ $_attribute->getAttributeId() ?>]"
+                        data-selector="super_attribute[<?= /* @noEscape */ $_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?= /* @noEscape */ $_attribute->getAttributeId() ?>"
+                        class="super-attribute-select">
+                    <option value=""><?= /* @noEscape */ __('Choose an Option...') ?></option>
+                </select>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "configurable": {
+                    "spConfig": <?= /* @noEscape */ $block->getJsonConfig() ?>,
+                    "gallerySwitchStrategy": "<?=
+                    $block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct')
+                    ?: 'replace'; ?>"
+                }
+            }
+        }
+    </script>
+<?php endif;?>

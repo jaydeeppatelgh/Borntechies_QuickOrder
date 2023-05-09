@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="wk-quick-order-link" ifconfig="quickOrder/settings/enable">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Quick Order</argument>
+                    <argument name="path" xsi:type="string">quickOrder</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="wk-quick-order-link-footer" ifconfig="quickOrder/settings/enable">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Quick Order</argument>
+                    <argument name="path" xsi:type="string">quickOrder</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

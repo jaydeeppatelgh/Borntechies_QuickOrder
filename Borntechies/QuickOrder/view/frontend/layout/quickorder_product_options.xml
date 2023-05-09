@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Product\View" name="quick_order_product_options" cacheable="false" ifconfig="quickOrder/settings/enable">
+                <block class="Magento\Framework\View\Element\Template" name="product.info.form.options" as="options_container">
+                    <block class="Magento\Catalog\Block\Product\View" name="product.info.options.wrapper" as="product_options_wrapper" template="Magento_Catalog::product/view/options/wrapper.phtml">
+                        <block class="Magento\Catalog\Block\Product\View\Options" name="product.info.options" as="product_options" template="Magento_Catalog::product/view/options.phtml">
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" name="product.info.options.default" as="default" template="Magento_Catalog::product/view/options/type/default.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" name="product.info.options.text" as="text" template="Magento_Catalog::product/view/options/type/text.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\File" name="product.info.options.file" as="file" template="Magento_Catalog::product/view/options/type/file.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" name="product.info.options.select" as="select" template="Magento_Catalog::product/view/options/type/select.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" name="product.info.options.date" as="date" template="Magento_Catalog::product/view/options/type/date.phtml"/>
+                        </block>
+                        <block class="Borntechies\QuickOrder\Block\Product\Configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="Magento_ConfigurableProduct::product/view/type/options/configurable.phtml"/>
+                        <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+                        <!-- for downloadable product options -->
+                        <block class="Magento\Catalog\Block\Product\View" name="wk_downloadable_product_options_block" template="Borntechies_QuickOrder::quick_order/product/options/downloadable.phtml"/>
+                        <!-- for bundle product options -->
+                        <block class="Magento\Catalog\Block\Product\View" name="wk_bundle_product_options_block" template="Borntechies_QuickOrder::quick_order/product/options/bundle.phtml"/>
+                        <!-- for grouped product options -->
+                        <block class="Magento\Catalog\Block\Product\View" name="wk_grouped_product_options_block" template="Borntechies_QuickOrder::quick_order/product/options/grouped.phtml"/>
+                    </block>
+                </block>
+                <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                    <block class="Magento\Framework\View\Element\Template" name="category.product.type.product.info.form.options.renderers.default" as="default"/>
+                     <!-- for configurable product options -->
+                    <block class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable" name="category.product.type.details.renderers.configurable" as="configurable" template="Magento_Swatches::product/listing/renderer.phtml" ifconfig="catalog/frontend/show_swatches_in_product_list" />
+                </block>
+            </block>
+        </referenceContainer>
+        <!-- for configurable product options -->
+        <referenceBlock name="wk_configurable_product_options_block">
+            <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="Magento_ConfigurableProduct::product/view/type/options/configurable.phtml"/>
+        </referenceBlock>
+        <!-- for downloadable product options -->
+        <referenceBlock name="wk_downloadable_product_options_block">
+            <block class="Magento\Downloadable\Block\Catalog\Product\Links" name="product.info.downloadable.options" as="type_downloadable_options" before="-" template="Magento_Downloadable::catalog/product/links.phtml">
+                <block class="Magento\Catalog\Pricing\Render" name="product.price.link">
+                    <arguments>
+                        <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                        <argument name="price_type_code" xsi:type="string">link_price</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <!-- for bundle product options -->
+        <referenceBlock name="wk_bundle_product_options_block">
+            <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle.options" as="type_bundle_options" template="Magento_Bundle::catalog/product/view/type/bundle/options.phtml" before="-">
+                <container name="product.info.bundle.options.top" as="product_info_bundle_options_top">
+                    <block class="Magento\Catalog\Block\Product\View" name="bundle.back.button" as="backButton" before="-" template="Magento_Bundle::catalog/product/view/backbutton.phtml"/>
+                </container>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                        <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                        <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox">
+                    <arguments>
+                        <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <!-- for grouped product options -->
+        <referenceBlock name="wk_grouped_product_options_block">
+            <block class="Magento\GroupedProduct\Block\Product\View\Type\Grouped" name="product.info.grouped" template="Magento_GroupedProduct::product/view/type/grouped.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Product\View" name="quick_order_product_options" cacheable="false" ifconfig="quickOrder/settings/enable">
+                <block class="Magento\Framework\View\Element\Template" name="product.info.form.options" as="options_container">
+                    <block class="Magento\Catalog\Block\Product\View" name="product.info.options.wrapper" as="product_options_wrapper" template="Magento_Catalog::product/view/options/wrapper.phtml">
+                       <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="Magento_ConfigurableProduct::product/view/type/options/configurable.phtml"/>
+                        <block class="Magento\Catalog\Block\Product\View\Options" name="product.info.options" as="product_options" template="Magento_Catalog::product/view/options.phtml">
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" name="product.info.options.default" as="default" template="Magento_Catalog::product/view/options/type/default.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" name="product.info.options.text" as="text" template="Magento_Catalog::product/view/options/type/text.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\File" name="product.info.options.file" as="file" template="Magento_Catalog::product/view/options/type/file.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" name="product.info.options.select" as="select" template="Magento_Catalog::product/view/options/type/select.phtml"/>
+                            <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" name="product.info.options.date" as="date" template="Magento_Catalog::product/view/options/type/date.phtml"/>
+                        </block>
+                        <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+                    </block>
+                </block>
+                <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                    <block class="Magento\Framework\View\Element\Template" name="category.product.type.product.info.form.options.renderers.default" as="default"/>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="product.info.options.configurable" remove="true"/>
+        <referenceBlock name="product.info.options.wrapper">
+            <block class="Magento\Swatches\Block\Product\Renderer\Configurable" name="product.info.options.swatches"
+                   as="swatch_options" before="-">
+                <arguments>
+                    <argument name="configurable_view_model"
+                              xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>
