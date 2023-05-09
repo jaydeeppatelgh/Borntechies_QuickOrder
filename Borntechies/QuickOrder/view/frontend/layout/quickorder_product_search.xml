@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Borntechies\QuickOrder\Block\Product\View" name="quick_order_product_search" cacheable="false" ifconfig="quickOrder/settings/enable">
+                <container name="category.product.list.additional" as="additional" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="product.price.final" destination="product.info.form.options" before="product.info.giftcard"/>
+        <referenceContainer name="content">
+            <block class="Borntechies\QuickOrder\Block\Product\GiftcardProductView" name="quick_order_product_options" cacheable="false" ifconfig="quickOrder/settings/enable">
+                <block class="Magento\Framework\View\Element\Template" name="product.info.form.options" as="options_container">
+                    <block class="Magento\Catalog\Pricing\Render" name="product.price.final">
+                        <arguments>
+                            <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                            <argument name="price_type_code" xsi:type="string">final_price</argument>
+                            <argument name="zone" xsi:type="string">item_view</argument>
+                            <argument name="render_form" xsi:type="string">1</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\GiftCard\Block\Catalog\Product\View\Type\Giftcard" name="product.info.giftcard" as="product_type_data" template="Magento_GiftCard::product/view/type/giftcard.phtml" before="-">
+                        <block class="Magento\CatalogInventory\Block\Stockqty\DefaultStockqty" name="product.info.giftcard.extra" as="product_type_data_extra" template="Magento_CatalogInventory::stockqty/default.phtml"/>
+                    </block>
+                </block>
+                <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+                    <block class="Magento\Framework\View\Element\Template" name="category.product.type.product.info.form.options.renderers.default" as="default"/>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

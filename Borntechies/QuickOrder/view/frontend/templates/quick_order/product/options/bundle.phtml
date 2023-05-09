@@ -1,0 +1,16 @@
+<?php
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+
+$product = $block->getProduct();
+if ($product->getTypeId() == 'bundle') { ?>
+    <?= $block->getChildHtml(); ?>
+<?php }
+?>

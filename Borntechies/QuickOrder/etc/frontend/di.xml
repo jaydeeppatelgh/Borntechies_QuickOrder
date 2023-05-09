@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- For creating empty quote if product is ordered from quickorder page -->
+    <type name="\Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="Borntechies_QuickOrder::aroundGetConfig"
+                type="Borntechies\QuickOrder\Plugin\Checkout\Model\DefaultConfigProvider"
+                sortOrder="11" />
+    </type>
+</config>

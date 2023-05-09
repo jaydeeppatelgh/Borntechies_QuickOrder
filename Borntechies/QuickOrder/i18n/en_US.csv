@@ -1,0 +1,45 @@
+"Quick Order","Quick Order"
+"Product doesn't exist.","Product doesn't exist."
+"Requested product %1 is not in stock.","Requested product %1 is not in stock."
+"You added %1 to your shopping cart.","You added %1 to your shopping cart."
+"We can't add this item to your shopping cart right now.","We can't add this item to your shopping cart right now."
+"""Invalid sku(s) are:"" .","""Invalid sku(s) are:"" ."
+"We can't remove the item.","We can't remove the item."
+"Something went wrong.","Something went wrong."
+product_sku,product_sku
+qty,qty
+"We can't update the shopping cart.","We can't update the shopping cart."
+"Choose an Option...","Choose an Option..."
+"Product Name","Product Name"
+Quantity,Quantity
+Subtotal,Subtotal
+"Enter Product Name or SKU Number","Enter Product Name or SKU Number"
+"Qty #","Qty #"
+N/A,N/A
+" Remove"," Remove"
+Loading...,Loading...
+"Add Row","Add Row"
+"Upload CSV","Upload CSV"
+"Download Sample","Download Sample"
+Sku,Sku
+Configure,Configure
+"Add to Cart","Add to Cart"
+" Summary"," Summary"
+"No record found! Please search for another keyword.","No record found! Please search for another keyword."
+"Proceed to Checkout","Proceed to Checkout"
+"Please select required options.","Please select required options."
+"invalid skus are:","invalid skus are:"
+Borntechies,Borntechies
+Settings,Settings
+Enable,Enable
+Shipping,Shipping
+"Order Total","Order Total"
+"(Excl. Tax)","(Excl. Tax)"
+"(Incl. Tax)","(Incl. Tax)"
+"Excl. Tax","Excl. Tax"
+"Incl. Tax","Incl. Tax"
+Tax,Tax
+Discount,Discount
+"Order Total Excl. Tax","Order Total Excl. Tax"
+"Order Total Incl. Tax","Order Total Incl. Tax"
+"Max quantity available for ","Max quantity available for "

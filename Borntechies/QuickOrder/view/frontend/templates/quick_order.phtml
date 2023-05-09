@@ -1,0 +1,351 @@
+<?php
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+$catalogSearchUrl = $block->getUrl(
+    'catalogsearch/result',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$currentUrl = $block->getUrl(
+    'quickOrder',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$searchUrl = $block->getUrl(
+    'quickOrder/product/search',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$checkProductTypeUrl = $block->getUrl(
+    'quickOrder/product/getProductType',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$productBundDownGroupProductOptionsUrl = $block->getUrl(
+    'quickOrder/product/options',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+if ($block->getQuickOrderHelper()->isMagentoSwatchesModuleInstalled()) {
+    $productOptionsUrl = $block->getUrl(
+        'quickOrder/product/configurableproductswatchOptions',
+        ['_secure' => $block->getRequest()->isSecure()]
+    );
+} else {
+    $productOptionsUrl = $block->getUrl(
+        'quickOrder/product/configurableproductoptions',
+        ['_secure' => $block->getRequest()->isSecure()]
+    );
+}
+$giftproductOptionsUrl = $block->getUrl(
+    'quickOrder/product/giftcardproductoptions',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$addProductToQuoteUrl = $block->getUrl(
+    'quickOrder/product/add',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$updateItemQtyUrl = $block->getUrl(
+    'quickOrder/product/updateItemQty',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$removeProductFromQuoteUrl = $block->getUrl(
+    'quickOrder/product/delete',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$downloadSampleCsvurl = $block->getUrl(
+    'quickOrder/product/downloadsample',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+?>
+<div class="wk-quick-order-design">
+    <div class="wk-quick-order-collection-container">
+        <div id="wk-quick-order">
+            <form id="wk-quick-order-form"
+                data-bind="scope: 'wk-quick-order-wizard'"
+                name="wk-quick-order-form"
+                method="post"
+                action="<?= $block->escapeUrl(
+                    $block->getUrl('checkout/', ['_secure' => $block->getRequest()->isSecure()])
+                ) ?>"
+                class="wk-quick-order-products-row-container wk-quick-order-collection-header-txt">
+                <input type="hidden" name="form_key" id="wk-qo-form-key" 
+                    value="<?= $escaper->escapeHtml($block->getFormKey())?>" />
+                <table class="wk-quick-order-product-table">
+                    <thead>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Product Name'))?></th>
+                            <th><?= $escaper->escapeHtml(__('Quantity'))?></th>
+                            <th><?= $escaper->escapeHtml(__('Subtotal'))?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="wk-quick-order-product-table-tbody">
+                    </tbody>
+                </table>
+                <script id="wk-quick-order-quote-item-row-template" type="text/x-magento-template">
+                    <tr data-bind="scope: 'wk-quick-order-wizard'">
+                        <td data-th="<?= /* @noEscape */ __('Product Name')?>">
+                            <input type="text"
+                                name="product[][name]"
+                                id="wk_search_box<%- data.index %>"
+                                value="<%- data.name %>"
+                                data-index="<%- data.index %>"
+                                class="wk-product-search-box"
+                                placeholder="<?= /* @noEscape */ __('Enter Product Name or SKU Number')?>"
+                                disabled/>
+                            <input type="hidden" name="product[][id]" 
+                            value="<%- data.product_id %>" class="wk_product_item"/>
+                            <input type="hidden" name="product[][item]" 
+                                value="<%- data.item_id %>" 
+                                class="wk_product_quote_item" 
+                                id="wk_quote_item<%- data.item_id %>"/>
+                            <input type="hidden" name="product[][price]" 
+                            value="<%- data.price %>" class="wk_product_quote_item_price"/>
+                            <input type="hidden" name="product[][qty]" 
+                                value="<%- data.qty %>" class="wk_product_quote_item_qty"/>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Quantity')?>">
+                            <input type="text"
+                                name="product[][qty]"
+                                class="wk-product-qty-box"
+                                value="<%- data.qty %>"
+                                placeholder="<?= /* @noEscape */ __('Qty #')?>"
+                                data-bind="event: { change: onChangeProductQty }"
+                                />
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Subtotal')?>">
+                            <input type="text"
+                                name="product[][sub_total]"
+                                class="wk-product-price-box"
+                                value="<%- data.row_total %>"
+                                placeholder="<?= /* @noEscape */ __('N/A')?>"
+                                disabled/>
+                        </td>
+                        <td>
+                            <button type="button"
+                                class="btn button wk-quick-order-product-remove"
+                                data-bind="event: { click: removeProductRow}">
+                                <span><?= /* @noEscape */ __(' Remove') ?></span>
+                            </button>
+                        </td>
+                    </tr>
+                </script>
+                <script id="wk-quick-order-product-row-template" type="text/x-magento-template">
+                    <tr data-bind="scope: 'wk-quick-order-wizard'">
+                        <td data-th="<?= /* @noEscape */ __('Product Name')?>">
+                            <input type="text"
+                                data-bind="event: {focus: onFocus, 
+                                        keydown: onKeyDown, 
+                                        'input propertychange': onPropertyChange }"
+                                name="product[][name]"
+                                id="wk_search_box<%- data.index %>"
+                                data-index="<%- data.index %>"
+                                value=""
+                                class="wk-product-search-box"
+                                placeholder="<?= /* @noEscape */ __('Enter Product Name or SKU Number')?>"
+                                role="combobox"
+                                aria-haspopup="false"
+                                aria-autocomplete="both"
+                                autocomplete="off"/>
+                            <input type="hidden" name="product[][id]" value="" class="wk_product_item"/>
+                            <input type="hidden" name="product[][item]" value="" class="wk_product_quote_item"/>
+                            <input type="hidden" name="product[][price]" value="" class="wk_product_quote_item_price"/>
+                            <input type="hidden" name="product[][qty]" value="" class="wk_product_quote_item_qty"/>
+                            <div id="wk_search_autocomplete<%- data.index %>" class="search-autocomplete" 
+                            data-bind="event: {blur: onBlur}"
+                            ></div>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Quantity')?>">
+                            <input type="text"
+                                name="product[][qty]"
+                                class="wk-product-qty-box"
+                                value=""
+                                placeholder="<?= /* @noEscape */ __('Qty #')?>"
+                                data-bind="event: { change: onChangeProductQty }"
+                                />
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Subtotal')?>">
+                            <input type="text"
+                                name="product[][sub_total]"
+                                class="wk-product-price-box"
+                                value=""
+                                placeholder="<?= /* @noEscape */ __('N/A')?>" disabled/>
+                        </td>
+                        <td>
+                            <button type="button"
+                                class="btn button wk-quick-order-product-remove"
+                                data-bind="event: { click: removeProductRow}">
+                                <span><?= /* @noEscape */ __(' Remove') ?></span>
+                            </button>
+                        </td>
+                    </tr>
+                </script>
+                <!-- ko if: isAjaxLoader -->
+                <div class="loading-mask" data-bind="visible: isAjaxLoader">
+                    <div class="loader">
+                        <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                            alt="<?= $escaper->escapeHtml(__('Loading...'))?>"
+                            style="position: absolute;">
+                    </div>
+                </div>
+                <!-- /ko -->
+                <div class="wk-quick-order-btn-main-wrapper">
+                    <span class="wk-quick-order-add-btn-label wk-add-row-button wk-quick-order-primary-btn" 
+                        data-bind="event: { click: addProductRow }">
+                        <?= $escaper->escapeHtml(__('Add Row')) ?>
+                    </span>
+                    <input type="file" name ="csv_file" data-bind="event:{change:addProductCsv}"
+                    class="wk-quickorder-csv-file" onclick='this.value=null;' style="display:none;"/>
+                    <span class="wk-quick-order-add-csv-btn wk-quick-order-add-btn-label wk-quick-order-primary-btn" 
+                        data-bind = "event:{click: addCSVfile}">
+                        <?= $escaper->escapeHtml(__('Upload CSV')) ?>
+                    </span>
+                    <a href= <?= $escaper->escapeUrl($downloadSampleCsvurl)?> >
+                    <span class="wk-quick-order-download-samplecsv-btn 
+                    wk-quick-order-add-btn-label wk-quick-order-primary-btn" >
+                        <?= $escaper->escapeHtml(__('Download Sample')) ?>
+                    </span>
+                    </a>
+                </div>
+                <table class="wk-quick-order-csv-product-table" style="display:none">
+                    <thead>
+                        <tr>
+                            <th><?= $escaper->escapeHtml(__('Product Name'))?></th>
+                            <th><?= $escaper->escapeHtml(__('Sku'))?></th>
+                            <th><?= $escaper->escapeHtml(__('Quantity'))?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="wk-quick-order-csv-product-table-tbody">
+                    </tbody>
+                </table>
+                <script id="wk-quick-order-csv-product-row-template" type="text/x-magento-template">
+                    <tr class ="wk-quick-order-csv-row" data-bind="scope: 'wk-quick-order-wizard'">
+                        <td data-th="<?= /* @noEscape */ __('Product Name')?>">
+                            <span 
+                                id="wk_csv_product_name_box<%- data.index %>"
+                                data-productId="<%- data.product_id %>" 
+                                data-index="<%- data.index %>" 
+                                data-typeId="<%- data.typeId %>
+                                class="wk-csv-product-name-box"
+                                ><%- data.name %></span>
+                            <input type="hidden" name="product[][id]" 
+                            value="<%- data.product_id %>" 
+                            class="wk_product_item"/>
+                            
+                            
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Sku')?>">
+                            <input type="text"
+                                name="product[][sku]"
+                                class="wk-product-sku-box"
+                                value="<%- data.sku %>"
+                                placeholder="<?= /* @noEscape */ __('Sku')?>"
+                               
+                                />
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Quantity')?>">
+                        <input type="text"
+                                name="product[][qty]"
+                                class="wk-product-qty-box"
+                                value="<%- data.qty %>"
+                                placeholder="<?= /* @noEscape */ __('Qty #')?>"
+                               
+                                />
+                        </td>
+                        <td>
+                            <div class="wk-quick-order-options">
+                            <span class="wk-quick-order-configure-options" 
+                                style="display:none" data-productId="<%- data.product_id %>" 
+                                data-hasoptions="<%- data.has_options %>" 
+                                data-index="<%- data.index %>" 
+                                id = "wk-quick-order-configure<%- data.product_id %>"
+                                data-typeId="<%- data.typeId %>"
+                                data-bind = "click: function(){ addConfigurableOptions(event)}" >
+                                <?= /* @noEscape */ __('Configure') ?>
+                            </span>
+                            <span class="wk-quick-order-custom-options-details" id="config_span_form"></span>
+                            </div>
+                            <span style="display:none" class="quick_order_product_saleable">
+                                Out of stock
+                            </span>
+                        </td>
+                    </tr>
+                </script>
+                <span class="wk-quick-order-add-tocart-btn wk-quick-order-add-btn-label wk-quick-order-primary-btn"
+                data-bind = "event:{click: addCsvProductsToCart}" style="display:none">
+                        <?= $escaper->escapeHtml(__('Add to Cart')) ?>
+                </span>
+                <h3><span><?= $escaper->escapeHtml(__(' Summary')) ?></span></h3>
+                <!-- ko if: isQuoteExist -->
+                    <div data-block="cartSummary" data-bind="visible: isQuoteExist">
+                        <?= $block->getChildHtml("cart.summary")?>
+                    </div>
+                <!-- /ko -->
+                <div class="wk-quick-order-btn-wrapper">
+                    <?= $block->getChildHtml("wk.qo.checkout.cart.button")?>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php
+$priceFormat = $block->getJsonHelper()->jsonEncode($block->getPriceFormat());
+$isQuoteExist = $block->isQuoteExist();
+$cartItems = $block->getJsonHelper()->jsonEncode($block->getCartItems());
+?>
+<script>
+    require([
+        "jquery"
+    ], function ($) {
+        window.shippingBlockSts = 0;
+        $('#wk-quick-order-form').on('click', '[aria-controls="block-summary"]', function () {
+            $('#block-shipping').toggleClass('active');
+        });
+        $('#wk-quick-order-form').on('mouseover', '#shipping-zip-form select', function () {
+            window.shippingBlockSts = 1;
+        });
+        $('#wk-quick-order-form').on('mouseout', '#shipping-zip-form select', function () {
+            window.shippingBlockSts = 0;
+        });
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wk-quick-order-wizard": {
+                        "component": "wkQuickOrder",
+                        "emptyProductReturnLabel": "<?= /* @noEscape */
+                            __('No record found! Please search for another keyword.')?>",
+                        "formSelector": "#wk-quick-order-form",
+                        "fieldSelector": ".wk-product-search-box",
+                        "destinationSelector": ".search-autocomplete",
+                        "priceFormat": <?= /* @noEscape */ $priceFormat ?>,
+                        "cartItems": <?= /* @noEscape */ $cartItems ?>,
+                        "isQuoteExistFlag": <?= (int)$isQuoteExist?>,
+                        "currentUrl": "<?= /* @noEscape */ $currentUrl?>",
+                        "url": "<?= /* @noEscape */ $searchUrl?>",
+                        "productBundDownGroupProductOptionsUrl": "<?=
+                            /* @noEscape */ $productBundDownGroupProductOptionsUrl?>",
+                        "checkProductTypeUrl": "<?= /* @noEscape */ $checkProductTypeUrl?>",
+                        "configurableProductOptionsUrl": "<?= /* @noEscape */ $productOptionsUrl?>",
+                        "giftcardproductOptionsUrl": "<?= /* @noEscape */ $giftproductOptionsUrl?>",
+                        "addProductToQuoteUrl": "<?= /* @noEscape */ $addProductToQuoteUrl?>",
+                        "updateItemQtyUrl": "<?= /* @noEscape */ $updateItemQtyUrl?>",
+                        "removeProductFromQuoteUrl": "<?= /* @noEscape */ $removeProductFromQuoteUrl?>",
+                        "catalogSearchUrl": "<?= /* @noEscape */ $catalogSearchUrl?>",
+                        "addProductCsvUrl" :"<?= $block->escapeUrl($block->getUrl('quickOrder/product/csvfile'))?>",
+                        "addProductFromCsv" :"<?= $block->escapeUrl(
+                            $block->getUrl('quickOrder/product/addproductfromcsv')
+                        ); ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

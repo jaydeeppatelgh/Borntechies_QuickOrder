@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="borntechies" translate="label" sortOrder="10" class="wk-config-tab-class">
+            <label>Borntechies</label>
+        </tab>
+        <section id="quickOrder" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quick Order</label>
+            <!-- Assign section to tab -->
+            <tab>borntechies</tab>
+            <resource>Borntechies_QuickOrder::config_quickOrder</resource>
+            <!-- create group for fields in section -->
+            <group id="settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="enable" translate="label comment" sortOrder="3" type="select" showInDefault="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <!-- show support links -->
+            <group id="quickorder_product_information" translate="label" type="text" sortOrder="700" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Quick Order Product Information</label>
+                <field id="author" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[<p>Author: <a target="_blank" title="Born Techies Private Limited" href="https://borntechies.com/">Borntechies</a></p>
+                        <p>Vesion: 5.0.1</p>
+                        <p>User Guide: <a target="_blank" href="https://borntechies.com/blog/quick-order-magento2/">Click Here</a></p>
+                        <p>Store Extension: <a target="_blank" href="https://store.borntechies.com/magento2-quick-order.html">Click Here</a></p>
+                        <p>Ticket/Customisations: <a target="_blank" href="https://borntechies.uvdesk.com/en/customer/create-ticket/">Click Here</a></p>
+                        <p>Services: <a target="_blank" href="https://borntechies.com/magento-development/">Click Here</a></p>
+					]]></label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

@@ -1,0 +1,228 @@
+/**
+ * Born Techies.
+ *
+ * @category  Borntechies
+ * @package   Borntechies_QuickOrder
+ * @author    Borntechies
+ * @copyright Copyright (c) Born Techies Private Limited 
+ * @license   https://borntechies.com/
+ */
+ .wk-quick-order-product-table .search-autocomplete {
+    display: none;
+    margin-top: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 3;
+    box-sizing: border-box;
+}
+.wk-quick-order-product-table .search-autocomplete ul:not(:empty) {
+    background: #fff;
+    border: 1px solid #c2c2c2;
+    border-top: 0;
+}
+.wk-quick-order-product-table .search-autocomplete ul {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+}
+.wk-quick-order-product-table .search-autocomplete ul li:first-child {
+    border-top: none;
+}
+.wk-quick-order-product-table .search-autocomplete ul li {
+    border-top: 1px solid #e5e5e5;
+    cursor: pointer;
+    margin: 0;
+    padding: 5px 40px 5px 10px;
+    position: relative;
+    text-align: left;
+    white-space: normal;
+}
+.wk-quick-order-product-table .search-autocomplete ul li .amount {
+    color: #999;
+    position: absolute;
+    right: 7px;
+    top: 5px;
+}
+.wk-quick-order-product-table .price-container .price {
+    font-size: 1.4rem;
+}
+@media (max-width: 767px) {
+    #wk-quick-order {
+        width: 100%;
+        overflow: auto;
+    }
+    .wk-quick-order-product-table th {
+        display: none;
+        width: 100%!important;
+        padding: 10px 0!important;
+    }
+    .wk-quick-order-product-table td {
+        display: inline-block;
+        width: 100%!important;
+        padding: 10px 0!important;
+    }
+    .wk-quick-order-product-table td:before {
+        content: attr(data-th) ':';
+        display: block;
+        font-weight: 700;
+    }
+    .wk-quick-order-product-table td:last-child:before {
+        display: none;
+    }
+}
+@media (min-width: 768px) {
+    #wk-quick-order {
+        width: 70%;
+    }
+    .wk-quick-order-product-table th:first-child,
+    .wk-quick-order-product-table td:first-child {
+        padding-left: 0;
+        width: 60%;
+    }
+    .wk-quick-order-product-table th:last-child,
+    .wk-quick-order-product-table td:last-child {
+        padding-right: 0;
+    }
+}
+.wk-quick-order-collection-container .fieldset {
+    margin: 0 0 10px;
+}
+.wk-quick-order-collection-h2 {
+    font-weight: 700;
+    color: #5f5f5f;
+    margin-top: 0;
+}
+.wk-quick-order-products-row-container {
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 3px;
+}
+.wk-quick-order-collection-header-txt {
+    color: #5f5f5f;
+    line-height: initial;
+}
+.wk-quick-order-primary-btn {
+    padding: 7px 12px;
+    background-color: #1979c3;
+    border: 1px solid #1979c3;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: inline-block;
+    cursor: pointer;
+}
+.wk-quick-order-primary-btn:hover {
+    background: #006bb4;
+    border: 1px solid #006bb4;
+    color: #fff;
+}
+.wk-quick-order-btn-wrapper {
+    display: inline-block;
+}
+.wk-quick-order-model-popup .modal-footer.wk-quick-order-btn-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+}
+.wk-quick-order-btn-wrapper button {
+    color: #fff;
+    background: #f7962b;
+    border-color: #f7962b;
+    box-shadow: none;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.wk-quick-order-add-btn-label {
+    position: relative;
+    padding: 7px 12px 7px 30px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+.wk-quick-order-add-btn-label:before {
+    content: "+";
+    position: absolute;
+    left: 11.3px;
+    top: 5.5px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    z-index: 2;
+    color: #1979c3;
+}
+.wk-quick-order-add-btn-label:after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+    background: #fff;
+    position: absolute;
+    top: 9px;
+    bottom: 9px;
+    left: 8px;
+    z-index: 1;
+}
+#wk-quick-order .cart-summary {
+    position: relative;
+    width: 100%;
+    top: initial!important;
+    padding: 0;
+    margin: 0;
+}
+.active #block-summary {
+    display: block!important;
+}
+.wk-product-detail-section {
+    display: none;
+}
+.wk-product-detail-section.active {
+    display: block;
+}
+.swatch-option.color {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 2px;
+}
+.wk-quick-order-design .loading-mask {
+    z-index: 999;
+}
+.wk-product-detail-section-wrap .action.back.customization {
+    display: none;
+}
+ @media screen and (max-width: 405px) {
+   .wk-quick-order-product-table .search-autocomplete ul li .amount {
+    color: #999;
+    position: unset;
+    right: 7px;
+    top: 5px;
+  }
+
+  .search-autocomplete ul li .amount {
+     color: #999;
+    position: unset;
+    right: 7px;
+    top: 5px;
+  }
+}
+@media only screen and (max-width: 723px) {
+    .modal-popup .modal-footer {
+        padding-bottom:29rem;
+    }
+}
+span.wk-quick-order-configure-options {
+    cursor: pointer;
+}
+@media only screen and (max-width: 425px) {
+    .wk-quick-order-btn-main-wrapper{
+        display: grid;
+        row-gap: 2px;
+        width: auto;
+    }
+    .wk-quick-order-add-btn-label{
+        width: fit-content;
+    }
+    .wk-quick-order-add-btn-label{
+        width: fit-content;
+    }
+}

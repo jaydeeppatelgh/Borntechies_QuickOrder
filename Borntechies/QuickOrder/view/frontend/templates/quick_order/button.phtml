@@ -1,0 +1,11 @@
+<button type="button"
+    id="proceed-checkout"
+    data-bind="event: { click: function(){ proceedCheckout(event)}}"
+    data-role="proceed-to-checkout"
+    title="<?= $escaper->escapeHtml(__('Proceed to Checkout')) ?>"
+    data-mage-init='{"Magento_Checkout/js/proceed-to-checkout":
+                        {"checkoutUrl":"<?= $block->escapeUrl($block->getCheckoutUrl()) ?>"}}'
+    class="wk-btn wk-btn-primary checkout<?= ($block->isDisabled()) ? ' disabled' : '' ?>"
+    <?php if ($block->isDisabled()):?>disabled="disabled"<?php endif; ?>>
+    <span><?= $escaper->escapeHtml(__('Proceed to Checkout')) ?></span>
+</button>
